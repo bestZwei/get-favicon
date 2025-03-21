@@ -2,7 +2,7 @@
 import { serve } from "https://deno.land/std@0.203.0/http/server.ts";
 
 // 定义 Google Favicon API 的基础 URL
-const GOOGLE_FAVICON_API = "https://www.google.com/s2/favicons?domain=";
+const GOOGLE_FAVICON_API = "https://www.google.com/s2/favicons";
 
 // 启动 HTTP 服务
 serve(async (req: Request) => {
@@ -10,16 +10,23 @@ serve(async (req: Request) => {
     // 解析请求参数
     const url = new URL(req.url);
     const domain = url.searchParams.get("domain");
+    const size = url.searchParams.get("sz"); // 获取 sz 参数（可选）
 
     if (!domain) {
       return new Response("Missing 'domain' parameter", { status: 400 });
     }
 
     // 构造 Google Favicon API 的完整 URL
-    const googleFaviconUrl = `${GOOGLE_FAVICON_API}${encodeURIComponent(domain)}`;
+    const googleFaviconUrl = new URL(GOOGLE_FAVICON_API);
+    googleFaviconUrl.searchParams.set("domain", domain);
+
+    // 如果提供了 sz 参数，则添加到请求中
+    if (size) {
+      googleFaviconUrl.searchParams.set("sz", size);
+    }
 
     // 请求 Google Favicon API
-    const response = await fetch(googleFaviconUrl);
+    const response = await fetch(googleFaviconUrl.toString());
 
     // 检查响应是否成功
     if (!response.ok) {
