@@ -31,11 +31,21 @@ This is a simple favicon retrieval service that proxies requests to the Google F
 
 ## Usage
 
-Once deployed, you can use the service at:
+Once deployed, you can use the service in two ways:
+
+### 1. Root path (simplest)
+
+```
+https://[your-project-name].pages.dev/?domain=[domain]
+```
+
+### 2. API path
 
 ```
 https://[your-project-name].pages.dev/api/favicon?domain=[domain]
 ```
+
+Both methods will return the favicon image directly.
 
 ### Parameters
 
@@ -46,19 +56,29 @@ https://[your-project-name].pages.dev/api/favicon?domain=[domain]
 
 Basic usage:
 ```
-https://get-favicon.pages.dev/api/favicon?domain=google.com
+https://get-favicon.pages.dev/?domain=google.com
 ```
 
 With specified size:
 ```
-https://get-favicon.pages.dev/api/favicon?domain=google.com&sz=64
+https://get-favicon.pages.dev/?domain=google.com&sz=64
 ```
 
 ### Usage in HTML
 
 ```html
-<img src="https://get-favicon.pages.dev/api/favicon?domain=google.com" alt="Google Favicon">
+<img src="https://get-favicon.pages.dev/?domain=google.com" alt="Google Favicon">
 ```
+
+## Interactive Demo
+
+The project includes an interactive HTML demo page that's available at the root URL of your deployment:
+
+```
+https://[your-project-name].pages.dev/
+```
+
+This page allows users to test the service with different domains and see live examples.
 
 ## Development
 
