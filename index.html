@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Favicon Service</title>
+  <title>Favicon Service / 网站图标服务</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -98,23 +98,71 @@
     .tab-content.active {
       display: block;
     }
+    .footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: #888;
+      font-size: 0.95em;
+    }
+    .footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    .disclaimer {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #fffbe6;
+      border: 1px solid #ffe58f;
+      border-radius: 5px;
+      color: #ad8b00;
+      font-size: 0.98em;
+    }
+    .lang-switch {
+      float: right;
+      font-size: 0.95em;
+      margin-top: -2.2rem;
+    }
+    .lang-switch button {
+      background: none;
+      border: none;
+      color: #007bff;
+      cursor: pointer;
+      margin-left: 0.5em;
+      font-size: 1em;
+      padding: 0;
+    }
+    .lang-switch button.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-  <h1>Favicon Service</h1>
-  <p>This service allows you to easily fetch favicons for any domain using Google's Favicon API.</p>
+  <div class="lang-switch">
+    <button id="btn-zh" class="active" onclick="switchLang('zh')">中文</button>|
+    <button id="btn-en" onclick="switchLang('en')">English</button>
+  </div>
+  <h1 id="title-zh">网站图标服务</h1>
+  <h1 id="title-en" style="display:none;">Favicon Service</h1>
+  <p id="desc-zh">本服务可通过 Google Favicon API 获取任意域名的网站图标（favicon）。</p>
+  <p id="desc-en" style="display:none;">This service allows you to easily fetch favicons for any domain using Google's Favicon API.</p>
 
   <div class="demo-section">
-    <h2>Live Examples</h2>
+    <h2 id="live-examples-zh">在线示例</h2>
+    <h2 id="live-examples-en" style="display:none;">Live Examples</h2>
     <div class="tabs">
-      <div class="tab active" onclick="switchTab('basic')">Basic Usage</div>
-      <div class="tab" onclick="switchTab('size')">Size Options</div>
-      <div class="tab" onclick="switchTab('html')">HTML Usage</div>
+      <div class="tab active" onclick="switchTab('basic')"><span id="tab-basic-zh">基础用法</span><span id="tab-basic-en" style="display:none;">Basic Usage</span></div>
+      <div class="tab" onclick="switchTab('size')"><span id="tab-size-zh">尺寸选项</span><span id="tab-size-en" style="display:none;">Size Options</span></div>
+      <div class="tab" onclick="switchTab('html')"><span id="tab-html-zh">HTML 用法</span><span id="tab-html-en" style="display:none;">HTML Usage</span></div>
     </div>
     
     <div id="basic" class="tab-content active">
       <div class="example">
-        <div class="example-title">Standard request:</div>
+        <div class="example-title" id="ex-title-basic-zh">标准请求：</div>
+        <div class="example-title" id="ex-title-basic-en" style="display:none;">Standard request:</div>
         <div class="favicon-demo">
           <img src="/?domain=google.com" alt="Google favicon"> 
           <code>/?domain=google.com</code>
@@ -132,7 +180,8 @@
 
     <div id="size" class="tab-content">
       <div class="example">
-        <div class="example-title">Size variations:</div>
+        <div class="example-title" id="ex-title-size-zh">尺寸变化：</div>
+        <div class="example-title" id="ex-title-size-en" style="display:none;">Size variations:</div>
         <div class="favicon-demo">
           <img src="/?domain=twitter.com&sz=16" alt="Twitter favicon"> 
           <code>/?domain=twitter.com&sz=16</code> (16px)
@@ -150,28 +199,47 @@
 
     <div id="html" class="tab-content">
       <div class="example">
-        <div class="example-title">HTML implementation:</div>
+        <div class="example-title" id="ex-title-html-zh">HTML 示例：</div>
+        <div class="example-title" id="ex-title-html-en" style="display:none;">HTML implementation:</div>
         <pre><code>&lt;img src="https://your-project.pages.dev/?domain=google.com" alt="Google favicon"&gt;</code></pre>
-        <pre><code>&lt;img src="https://your-project.pages.dev/?domain=twitter.com&sz=32" alt="Twitter favicon"&gt;</code></pre>
+        <pre><code>&lt;img src="https://your-project.pages.dev/?domain=twitter.com&amp;sz=32" alt="Twitter favicon"&gt;</code></pre>
       </div>
     </div>
   </div>
 
   <div class="try-it">
-    <h2>Try it yourself</h2>
+    <h2 id="try-zh">在线体验</h2>
+    <h2 id="try-en" style="display:none;">Try it yourself</h2>
     <div>
-      <input type="text" id="domainInput" placeholder="Enter a domain (e.g., example.com)">
+      <input type="text" id="domainInput" placeholder="输入域名 (如 example.com) / Enter a domain">
       <select id="sizeSelect">
-        <option value="">Default size</option>
+        <option value="">默认尺寸 / Default size</option>
         <option value="16">16px</option>
         <option value="32">32px</option>
         <option value="64">64px</option>
       </select>
-      <button onclick="testFavicon()">Get Favicon</button>
+      <button onclick="testFavicon()" id="btn-get-zh">获取图标</button>
+      <button onclick="testFavicon()" id="btn-get-en" style="display:none;">Get Favicon</button>
     </div>
     <div id="result">
-      <p>The favicon will appear here...</p>
+      <p id="result-tip-zh">图标将在这里显示...</p>
+      <p id="result-tip-en" style="display:none;">The favicon will appear here...</p>
     </div>
+  </div>
+
+  <div class="disclaimer" id="disclaimer-zh">
+    <b>免责声明：</b>本服务仅作学习和演示用途，图标内容均来自 Google Favicon API，版权归原网站所有。请勿用于商业用途或大规模抓取。如因使用本服务导致任何法律风险或账号被封，开发者概不负责。
+  </div>
+  <div class="disclaimer" id="disclaimer-en" style="display:none;">
+    <b>Disclaimer:</b> This service is for learning and demonstration purposes only. All favicon content is fetched from the Google Favicon API and belongs to the original site owners. Do not use for commercial purposes or large-scale crawling. The developer is not responsible for any legal risks or account suspension caused by using this service.
+  </div>
+
+  <div class="footer">
+    <p>
+      Source on
+      <a href="https://github.com/bestZwei/get-favicon" target="_blank" rel="noopener">GitHub</a>
+      &middot; Powered by Cloudflare Pages Functions
+    </p>
   </div>
 
   <script>
@@ -180,7 +248,7 @@
       const size = document.getElementById('sizeSelect').value;
       
       if (!domain) {
-        alert('Please enter a domain name');
+        alert(document.documentElement.lang === 'zh-CN' ? '请输入域名' : 'Please enter a domain name');
         return;
       }
       
@@ -191,7 +259,7 @@
       
       const resultDiv = document.getElementById('result');
       resultDiv.innerHTML = `
-        <p>Favicon for ${domain}:</p>
+        <p>${document.documentElement.lang === 'zh-CN' ? '图标预览：' : 'Favicon for '}${domain}:</p>
         <div class="favicon-demo">
           <img src="${url}" alt="${domain} favicon">
           <code>${url}</code>
@@ -215,6 +283,40 @@
       
       // Activate the clicked tab
       event.currentTarget.classList.add('active');
+    }
+
+    function switchLang(lang) {
+      // zh/en toggle
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+      // Titles
+      document.getElementById('title-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('title-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('desc-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('desc-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('live-examples-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('live-examples-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('tab-basic-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('tab-basic-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('tab-size-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('tab-size-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('tab-html-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('tab-html-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('ex-title-basic-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('ex-title-basic-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('ex-title-size-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('ex-title-size-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('ex-title-html-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('ex-title-html-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('try-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('try-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('btn-get-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('btn-get-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('result-tip-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('result-tip-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('disclaimer-zh').style.display = lang === 'zh' ? '' : 'none';
+      document.getElementById('disclaimer-en').style.display = lang === 'en' ? '' : 'none';
+      document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     }
   </script>
 </body>
