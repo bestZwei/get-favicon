@@ -8,7 +8,12 @@ export async function onRequest(context) {
     const size = url.searchParams.get("sz"); // 获取 sz 参数（可选）
 
     if (!domain) {
-      return new Response("缺少 'domain' 参数", { status: 400 });
+      return new Response("缺少 'domain' 参数", { 
+        status: 400,
+        headers: {
+          "Content-Type": "text/plain;charset=UTF-8"
+        } 
+      });
     }
 
     // 定义 Google Favicon API 的基础 URL
@@ -24,11 +29,22 @@ export async function onRequest(context) {
     }
 
     // 请求 Google Favicon API
-    const response = await fetch(googleFaviconUrl.toString());
+    const response = await fetch(googleFaviconUrl.toString(), {
+      cf: {
+        cacheTtl: 86400, // 缓存一天
+        cacheEverything: true
+      }
+    });
 
     // 检查响应是否成功
     if (!response.ok) {
-      return new Response("获取 favicon 失败", { status: 500 });
+      console.error(`获取 favicon 失败: ${response.status} ${response.statusText}`);
+      return new Response("获取 favicon 失败", { 
+        status: response.status, 
+        headers: {
+          "Content-Type": "text/plain;charset=UTF-8"
+        } 
+      });
     }
 
     // 获取 favicon 数据
@@ -43,7 +59,12 @@ export async function onRequest(context) {
       },
     });
   } catch (error) {
-    console.error("错误:", error);
-    return new Response("服务器内部错误", { status: 500 });
+    console.error("错误:", error.message || error);
+    return new Response("服务器内部错误", { 
+      status: 500, 
+      headers: {
+        "Content-Type": "text/plain;charset=UTF-8"
+      } 
+    });
   }
 }
