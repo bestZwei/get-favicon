@@ -6,94 +6,176 @@
   <title>Favicon Service / 网站图标服务</title>
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      line-height: 1.6;
-      color: #333;
-      max-width: 800px;
+      font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%);
+      color: #222;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 1rem;
+      padding: 2rem 1rem 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
     }
     h1 {
-      border-bottom: 1px solid #eee;
+      border-bottom: 2px solid #e3e8ee;
       padding-bottom: 0.5rem;
+      margin-bottom: 1.2rem;
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #007bff 30%, #00c6ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
     }
     .demo-section {
-      margin: 2rem 0;
-      padding: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      background-color: #f9f9f9;
+      margin: 2.5rem 0;
+      padding: 1.5rem;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 2px 12px 0 rgba(0,0,0,0.04);
     }
     .example {
-      margin: 1rem 0;
+      margin: 1.2rem 0;
       padding: 1rem;
       border-left: 4px solid #007bff;
-      background-color: #f0f7ff;
+      background: linear-gradient(90deg, #f0f7ff 80%, #fff 100%);
+      border-radius: 6px;
     }
     .example-title {
       font-weight: bold;
       margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      color: #007bff;
     }
     .favicon-demo {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin: 10px 0;
+      gap: 16px;
+      margin: 12px 0;
     }
     .favicon-demo img {
-      border: 1px solid #eee;
+      border: 1.5px solid #e3e8ee;
+      border-radius: 6px;
+      background: #fff;
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.06);
+      transition: transform 0.2s;
+    }
+    .favicon-demo img:hover {
+      transform: scale(1.15) rotate(-2deg);
+      border-color: #007bff;
     }
     .try-it {
-      margin-top: 2rem;
+      margin: 2.5rem 0 2rem 0;
+      padding: 2rem 1rem 1.5rem 1rem;
+      background: linear-gradient(120deg, #f9f9fb 80%, #e6f0ff 100%);
+      border-radius: 14px;
+      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.03);
+      border: 1.5px solid #e3e8ee;
     }
-    input, button {
-      padding: 0.5rem;
-      font-size: 1rem;
+    .try-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1.2rem;
     }
-    input {
-      width: 60%;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+    input[type="text"] {
+      flex: 1 1 260px;
+      padding: 0.6rem 1rem;
+      font-size: 1.05rem;
+      border: 1.5px solid #b6c3d1;
+      border-radius: 6px;
+      outline: none;
+      transition: border 0.2s;
+      background: #f8fafc;
+    }
+    input[type="text"]:focus {
+      border-color: #007bff;
+      background: #fff;
+    }
+    select {
+      padding: 0.6rem 1.2rem 0.6rem 0.8rem;
+      font-size: 1.05rem;
+      border: 1.5px solid #b6c3d1;
+      border-radius: 6px;
+      background: #f8fafc;
+      outline: none;
+      transition: border 0.2s;
+    }
+    select:focus {
+      border-color: #007bff;
+      background: #fff;
     }
     button {
-      background-color: #007bff;
+      padding: 0.6rem 1.5rem;
+      font-size: 1.1rem;
+      background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.07);
+      transition: background 0.2s, transform 0.2s;
     }
     button:hover {
-      background-color: #0056b3;
+      background: linear-gradient(90deg, #0056b3 60%, #0099cc 100%);
+      transform: translateY(-2px) scale(1.04);
     }
     #result {
-      margin-top: 1rem;
+      margin-top: 1.2rem;
+      min-height: 44px;
+      font-size: 1.05rem;
+      color: #444;
     }
     code {
-      background-color: #f1f1f1;
-      padding: 2px 4px;
-      border-radius: 3px;
-      font-family: monospace;
+      background: #f1f3f8;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+      font-size: 1em;
+      color: #007bff;
     }
     .tabs {
       display: flex;
-      margin: 1rem 0;
+      margin: 1rem 0 0.5rem 0;
+      gap: 0.5rem;
     }
     .tab {
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.2rem;
       cursor: pointer;
-      border: 1px solid #ddd;
+      border: 1.5px solid #e3e8ee;
       border-bottom: none;
-      border-radius: 4px 4px 0 0;
+      border-radius: 8px 8px 0 0;
+      background: #f8fafc;
+      font-weight: 500;
+      color: #007bff;
+      transition: background 0.2s;
     }
     .tab.active {
-      background-color: #f9f9f9;
-      border-bottom: 1px solid #f9f9f9;
+      background: #fff;
+      border-bottom: 1.5px solid #fff;
+      color: #222;
+      font-weight: bold;
     }
     .tab-content {
       display: none;
-      padding: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 0 4px 4px 4px;
+      padding: 1rem 0.5rem 0.5rem 0.5rem;
+      border: 1.5px solid #e3e8ee;
+      border-radius: 0 0 8px 8px;
+      background: #fff;
     }
     .tab-content.active {
       display: block;
@@ -102,193 +184,254 @@
       margin-top: 3rem;
       text-align: center;
       color: #888;
-      font-size: 0.95em;
+      font-size: 0.97em;
+      letter-spacing: 0.5px;
+      width: 100%;
     }
     .footer a {
       color: #007bff;
       text-decoration: none;
+      font-weight: 500;
     }
     .footer a:hover {
       text-decoration: underline;
     }
     .disclaimer {
-      margin-top: 2rem;
-      padding: 1rem;
+      margin-top: 2.5rem;
+      padding: 1.1rem 1rem;
       background: #fffbe6;
-      border: 1px solid #ffe58f;
-      border-radius: 5px;
+      border: 1.5px solid #ffe58f;
+      border-radius: 7px;
       color: #ad8b00;
-      font-size: 0.98em;
+      font-size: 1.01em;
+      line-height: 1.7;
     }
     .lang-switch {
-      float: right;
-      font-size: 0.95em;
-      margin-top: -2.2rem;
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      z-index: 10;
+      background: rgba(255,255,255,0.85);
+      border-radius: 20px;
+      box-shadow: 0 1px 6px 0 rgba(0,0,0,0.04);
+      padding: 0.25em 1em;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      font-size: 1em;
+      border: 1.5px solid #e3e8ee;
+      transition: box-shadow 0.2s;
     }
     .lang-switch button {
       background: none;
       border: none;
       color: #007bff;
       cursor: pointer;
-      margin-left: 0.5em;
       font-size: 1em;
-      padding: 0;
+      padding: 0 0.2em;
+      font-weight: 500;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
     }
-    .lang-switch button.active {
+    .lang-switch button.active,
+    .lang-switch button:focus {
       font-weight: bold;
       text-decoration: underline;
+      background: #e6f0ff;
+      color: #0056b3;
+      outline: none;
+    }
+    .lang-switch button:not(.active):hover {
+      background: #f0f7ff;
+      color: #0056b3;
+    }
+    @media (max-width: 600px) {
+      .try-form {
+        flex-direction: column;
+        gap: 0.7rem;
+      }
+      .tabs {
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .lang-switch {
+        position: static;
+        margin: 0.5rem auto 0.5rem auto;
+        justify-content: center;
+        right: unset;
+        top: unset;
+        width: fit-content;
+        padding: 0.25em 0.7em;
+      }
+      .container {
+        padding: 0;
+      }
+    }
+    .demo-section, .try-it, .disclaimer, .footer {
+      box-sizing: border-box;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .demo-section, .try-it {
+      align-self: center;
     }
   </style>
 </head>
 <body>
   <div class="lang-switch">
-    <button id="btn-zh" class="active" onclick="switchLang('zh')">中文</button>|
-    <button id="btn-en" onclick="switchLang('en')">English</button>
+    <button id="btn-zh" class="active" onclick="switchLang('zh')" aria-label="切换到中文">中文</button>
+    <span style="color:#bbb;">|</span>
+    <button id="btn-en" onclick="switchLang('en')" aria-label="Switch to English">English</button>
   </div>
-  <h1 id="title-zh">网站图标服务</h1>
-  <h1 id="title-en" style="display:none;">Favicon Service</h1>
-  <p id="desc-zh">本服务可通过 Google Favicon API 获取任意域名的网站图标（favicon）。</p>
-  <p id="desc-en" style="display:none;">This service allows you to easily fetch favicons for any domain using Google's Favicon API.</p>
+  <div class="container">
+    <h1 id="title-zh">网站图标服务</h1>
+    <h1 id="title-en" style="display:none;">Favicon Service</h1>
+    <p id="desc-zh" style="text-align:center;">本服务可通过 Google Favicon API 获取任意域名的网站图标（favicon）。</p>
+    <p id="desc-en" style="display:none;text-align:center;">This service allows you to easily fetch favicons for any domain using Google's Favicon API.</p>
 
-  <div class="demo-section">
-    <h2 id="live-examples-zh">在线示例</h2>
-    <h2 id="live-examples-en" style="display:none;">Live Examples</h2>
-    <div class="tabs">
-      <div class="tab active" onclick="switchTab('basic')"><span id="tab-basic-zh">基础用法</span><span id="tab-basic-en" style="display:none;">Basic Usage</span></div>
-      <div class="tab" onclick="switchTab('size')"><span id="tab-size-zh">尺寸选项</span><span id="tab-size-en" style="display:none;">Size Options</span></div>
-      <div class="tab" onclick="switchTab('html')"><span id="tab-html-zh">HTML 用法</span><span id="tab-html-en" style="display:none;">HTML Usage</span></div>
-    </div>
-    
-    <div id="basic" class="tab-content active">
-      <div class="example">
-        <div class="example-title" id="ex-title-basic-zh">标准请求：</div>
-        <div class="example-title" id="ex-title-basic-en" style="display:none;">Standard request:</div>
-        <div class="favicon-demo">
-          <img src="/?domain=google.com" alt="Google favicon"> 
-          <code>/?domain=google.com</code>
+    <div class="demo-section">
+      <h2 id="live-examples-zh">在线示例</h2>
+      <h2 id="live-examples-en" style="display:none;">Live Examples</h2>
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('basic')"><span id="tab-basic-zh">基础用法</span><span id="tab-basic-en" style="display:none;">Basic Usage</span></div>
+        <div class="tab" onclick="switchTab('size')"><span id="tab-size-zh">尺寸选项</span><span id="tab-size-en" style="display:none;">Size Options</span></div>
+        <div class="tab" onclick="switchTab('html')"><span id="tab-html-zh">HTML 用法</span><span id="tab-html-en" style="display:none;">HTML Usage</span></div>
+      </div>
+      
+      <div id="basic" class="tab-content active">
+        <div class="example">
+          <div class="example-title" id="ex-title-basic-zh">标准请求：</div>
+          <div class="example-title" id="ex-title-basic-en" style="display:none;">Standard request:</div>
+          <div class="favicon-demo">
+            <img src="/?domain=google.com" alt="Google favicon"> 
+            <code>/?domain=google.com</code>
+          </div>
+          <div class="favicon-demo">
+            <img src="/?domain=github.com" alt="GitHub favicon"> 
+            <code>/?domain=github.com</code>
+          </div>
+          <div class="favicon-demo">
+            <img src="/?domain=microsoft.com" alt="Microsoft favicon"> 
+            <code>/?domain=microsoft.com</code>
+          </div>
         </div>
-        <div class="favicon-demo">
-          <img src="/?domain=github.com" alt="GitHub favicon"> 
-          <code>/?domain=github.com</code>
+      </div>
+
+      <div id="size" class="tab-content">
+        <div class="example">
+          <div class="example-title" id="ex-title-size-zh">尺寸变化：</div>
+          <div class="example-title" id="ex-title-size-en" style="display:none;">Size variations:</div>
+          <div class="favicon-demo">
+            <img src="/?domain=twitter.com&sz=16" alt="Twitter favicon"> 
+            <code>/?domain=twitter.com&sz=16</code> (16px)
+          </div>
+          <div class="favicon-demo">
+            <img src="/?domain=twitter.com&sz=32" alt="Twitter favicon"> 
+            <code>/?domain=twitter.com&sz=32</code> (32px)
+          </div>
+          <div class="favicon-demo">
+            <img src="/?domain=twitter.com&sz=64" alt="Twitter favicon"> 
+            <code>/?domain=twitter.com&sz=64</code> (64px)
+          </div>
+          <div class="favicon-demo">
+            <img src="/?domain=twitter.com&sz=128" alt="Twitter favicon"> 
+            <code>/?domain=twitter.com&sz=128</code> (128px)
+          </div>
+          <div class="favicon-demo">
+            <img src="/?domain=twitter.com&sz=256" alt="Twitter favicon"> 
+            <code>/?domain=twitter.com&sz=256</code> (256px)
+          </div>
         </div>
-        <div class="favicon-demo">
-          <img src="/?domain=microsoft.com" alt="Microsoft favicon"> 
-          <code>/?domain=microsoft.com</code>
+      </div>
+
+      <div id="html" class="tab-content">
+        <div class="example">
+          <div class="example-title" id="ex-title-html-zh">HTML 示例：</div>
+          <div class="example-title" id="ex-title-html-en" style="display:none;">HTML implementation:</div>
+          <pre><code>&lt;img src="https://your-project.pages.dev/?domain=google.com" alt="Google favicon"&gt;</code></pre>
+          <pre><code>&lt;img src="https://your-project.pages.dev/?domain=twitter.com&amp;sz=32" alt="Twitter favicon"&gt;</code></pre>
         </div>
       </div>
     </div>
 
-    <div id="size" class="tab-content">
-      <div class="example">
-        <div class="example-title" id="ex-title-size-zh">尺寸变化：</div>
-        <div class="example-title" id="ex-title-size-en" style="display:none;">Size variations:</div>
-        <div class="favicon-demo">
-          <img src="/?domain=twitter.com&sz=16" alt="Twitter favicon"> 
-          <code>/?domain=twitter.com&sz=16</code> (16px)
-        </div>
-        <div class="favicon-demo">
-          <img src="/?domain=twitter.com&sz=32" alt="Twitter favicon"> 
-          <code>/?domain=twitter.com&sz=32</code> (32px)
-        </div>
-        <div class="favicon-demo">
-          <img src="/?domain=twitter.com&sz=64" alt="Twitter favicon"> 
-          <code>/?domain=twitter.com&sz=64</code> (64px)
-        </div>
+    <div class="try-it">
+      <h2 id="try-zh">在线体验</h2>
+      <h2 id="try-en" style="display:none;">Try it yourself</h2>
+      <form class="try-form" onsubmit="event.preventDefault();testFavicon();">
+        <input type="text" id="domainInput" placeholder="输入域名 (如 example.com) / Enter a domain" autocomplete="off">
+        <select id="sizeSelect">
+          <option value="">默认尺寸 / Default size</option>
+          <option value="16">16px</option>
+          <option value="32">32px</option>
+          <option value="64">64px</option>
+          <option value="128">128px</option>
+          <option value="256">256px</option>
+        </select>
+        <button type="submit" id="btn-get-zh">获取图标</button>
+        <button type="submit" id="btn-get-en" style="display:none;">Get Favicon</button>
+      </form>
+      <div id="result">
+        <p id="result-tip-zh">图标将在这里显示...</p>
+        <p id="result-tip-en" style="display:none;">The favicon will appear here...</p>
       </div>
     </div>
 
-    <div id="html" class="tab-content">
-      <div class="example">
-        <div class="example-title" id="ex-title-html-zh">HTML 示例：</div>
-        <div class="example-title" id="ex-title-html-en" style="display:none;">HTML implementation:</div>
-        <pre><code>&lt;img src="https://your-project.pages.dev/?domain=google.com" alt="Google favicon"&gt;</code></pre>
-        <pre><code>&lt;img src="https://your-project.pages.dev/?domain=twitter.com&amp;sz=32" alt="Twitter favicon"&gt;</code></pre>
-      </div>
+    <div class="disclaimer" id="disclaimer-zh">
+      <b>免责声明：</b>本服务仅作学习和演示用途，图标内容均来自 Google Favicon API，版权归原网站所有。请勿用于商业用途或大规模抓取。如因使用本服务导致任何法律风险或账号被封，开发者概不负责。
+    </div>
+    <div class="disclaimer" id="disclaimer-en" style="display:none;">
+      <b>Disclaimer:</b> This service is for learning and demonstration purposes only. All favicon content is fetched from the Google Favicon API and belongs to the original site owners. Do not use for commercial purposes or large-scale crawling. The developer is not responsible for any legal risks or account suspension caused by using this service.
+    </div>
+
+    <div class="footer">
+      <p>
+        Source on
+        <a href="https://github.com/bestZwei/get-favicon" target="_blank" rel="noopener">GitHub</a>
+        &middot; Powered by Cloudflare Pages Functions
+      </p>
     </div>
   </div>
-
-  <div class="try-it">
-    <h2 id="try-zh">在线体验</h2>
-    <h2 id="try-en" style="display:none;">Try it yourself</h2>
-    <div>
-      <input type="text" id="domainInput" placeholder="输入域名 (如 example.com) / Enter a domain">
-      <select id="sizeSelect">
-        <option value="">默认尺寸 / Default size</option>
-        <option value="16">16px</option>
-        <option value="32">32px</option>
-        <option value="64">64px</option>
-      </select>
-      <button onclick="testFavicon()" id="btn-get-zh">获取图标</button>
-      <button onclick="testFavicon()" id="btn-get-en" style="display:none;">Get Favicon</button>
-    </div>
-    <div id="result">
-      <p id="result-tip-zh">图标将在这里显示...</p>
-      <p id="result-tip-en" style="display:none;">The favicon will appear here...</p>
-    </div>
-  </div>
-
-  <div class="disclaimer" id="disclaimer-zh">
-    <b>免责声明：</b>本服务仅作学习和演示用途，图标内容均来自 Google Favicon API，版权归原网站所有。请勿用于商业用途或大规模抓取。如因使用本服务导致任何法律风险或账号被封，开发者概不负责。
-  </div>
-  <div class="disclaimer" id="disclaimer-en" style="display:none;">
-    <b>Disclaimer:</b> This service is for learning and demonstration purposes only. All favicon content is fetched from the Google Favicon API and belongs to the original site owners. Do not use for commercial purposes or large-scale crawling. The developer is not responsible for any legal risks or account suspension caused by using this service.
-  </div>
-
-  <div class="footer">
-    <p>
-      Source on
-      <a href="https://github.com/bestZwei/get-favicon" target="_blank" rel="noopener">GitHub</a>
-      &middot; Powered by Cloudflare Pages Functions
-    </p>
-  </div>
-
   <script>
     function testFavicon() {
       const domain = document.getElementById('domainInput').value.trim();
       const size = document.getElementById('sizeSelect').value;
-      
       if (!domain) {
         alert(document.documentElement.lang === 'zh-CN' ? '请输入域名' : 'Please enter a domain name');
         return;
       }
-      
       let url = `/?domain=${encodeURIComponent(domain)}`;
       if (size) {
         url += `&sz=${size}`;
       }
-      
       const resultDiv = document.getElementById('result');
       resultDiv.innerHTML = `
-        <p>${document.documentElement.lang === 'zh-CN' ? '图标预览：' : 'Favicon for '}${domain}:</p>
-        <div class="favicon-demo">
-          <img src="${url}" alt="${domain} favicon">
+        <div class="favicon-demo" style="margin-top:8px;">
+          <img src="${url}" alt="${domain} favicon" style="width:${size||32}px;height:${size||32}px;">
           <code>${url}</code>
         </div>
+        <p style="margin:0.5em 0 0 0;color:#888;">
+          ${document.documentElement.lang === 'zh-CN' ? '如未显示，目标网站可能无该尺寸图标' : 'If not shown, the target site may not have this size favicon.'}
+        </p>
       `;
     }
 
     function switchTab(tabId) {
-      // Hide all tab contents
       document.querySelectorAll('.tab-content').forEach(content => {
         content.classList.remove('active');
       });
-      
-      // Deactivate all tabs
       document.querySelectorAll('.tab').forEach(tab => {
         tab.classList.remove('active');
       });
-      
-      // Show the selected tab content
       document.getElementById(tabId).classList.add('active');
-      
-      // Activate the clicked tab
       event.currentTarget.classList.add('active');
     }
 
     function switchLang(lang) {
-      // zh/en toggle
       document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-      // Titles
       document.getElementById('title-zh').style.display = lang === 'zh' ? '' : 'none';
       document.getElementById('title-en').style.display = lang === 'en' ? '' : 'none';
       document.getElementById('desc-zh').style.display = lang === 'zh' ? '' : 'none';
