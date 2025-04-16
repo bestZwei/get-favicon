@@ -38,6 +38,43 @@ This is a simple favicon retrieval service that proxies requests to the Google F
    wrangler pages publish .
    ```
 
+## Docker Compose 部署
+
+1. 新建 `docker-compose.yml` 文件，内容如下：
+
+```yaml
+version: '3.8'
+services:
+  favicon:
+    image: bestzwei/get-favicon:latest
+    container_name: get-favicon
+    restart: unless-stopped
+    ports:
+      - "9738:9738"  # 主机9738端口映射到容器9738
+    environment:
+      - PORT=9738     # 可选，如需自定义端口
+```
+
+2. 在服务器项目目录下运行：
+
+```
+docker compose up -d
+```
+
+3. 访问服务：
+
+```
+http://<你的服务器IP>:9738/?domain=example.com
+```
+或
+```
+http://<你的服务器IP>:9738/api/favicon?domain=example.com
+```
+
+---
+
+如需自定义端口，修改 `ports` 和 `environment` 中的端口号即可。
+
 ## 使用方法 / Usage
 
 部署后，你可以通过以下两种方式获取 favicon：  

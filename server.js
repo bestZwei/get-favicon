@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 9738;
 const GOOGLE_FAVICON_API = 'https://www.google.com/s2/favicons';
 
 // Serve static index.html at root
