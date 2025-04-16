@@ -1,68 +1,71 @@
-# Favicon 获取服务
+# Favicon Service with Cloudflare Pages Functions
 
-这是一个基于 Cloudflare Pages Functions 构建的简单 Favicon 镜像服务，可以获取任意网站的 favicon 图标。
+This is a simple favicon retrieval service that proxies requests to the Google Favicon API. It's implemented as a Cloudflare Pages Function for easy deployment and high availability.
 
-## 功能特点
+## Deployment
 
-- 使用 Google Favicon API 获取网站图标
-- 支持自定义图标大小
-- 使用 Cloudflare Pages 免费部署
-- 支持 CDN 缓存
-
-## 部署指南
-
-### 前提条件
-
-- 一个 Cloudflare 账号
-- 已安装 [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/get-started/)（Cloudflare 的命令行工具）
-
-### 部署步骤
-
-1. 克隆此仓库：
+1. Install [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/):
    ```
-   git clone https://github.com/your-username/get-favicon.git
-   cd get-favicon
+   npm install -g wrangler
    ```
 
-2. 使用 Wrangler 登录到您的 Cloudflare 账户：
+2. Login to your Cloudflare account:
    ```
    wrangler login
    ```
 
-3. 部署到 Cloudflare Pages：
+3. Create a new Cloudflare Pages project:
    ```
+   # Create a new directory if you haven't already
+   cd get-favicon
+   
+   # Initialize a new git repository if not already done
+   git init
+   git add .
+   git commit -m "Initial commit"
+   
+   # Create and deploy the Cloudflare Pages project
+   wrangler pages project create get-favicon
    wrangler pages publish .
    ```
 
-4. 部署完成后，您将获得一个 Cloudflare Pages 域名，如 `your-project.pages.dev`
+## Usage
 
-## 如何使用
-
-获取网站的 favicon：
-```
-https://[您的域名]/api/favicon?domain=example.com
-```
-
-指定图标大小：
-```
-https://[您的域名]/api/favicon?domain=example.com&sz=64
-```
-
-## 参数说明
-
-- `domain`：必需，指定要获取 favicon 的网站域名
-- `sz`：可选，指定图标大小（像素），如 16、32、48、64 等
-
-## 本地开发
-
-使用 Wrangler 在本地运行开发服务器：
+Once deployed, you can use the service at:
 
 ```
-wrangler pages dev .
+https://[your-project-name].pages.dev/api/favicon?domain=[domain]
 ```
 
-然后在浏览器中访问 `http://localhost:8788` 即可测试服务。
+### Parameters
 
-## 授权许可
+- `domain`: (Required) The domain to fetch the favicon for (e.g., `google.com`)
+- `sz`: (Optional) The desired size of the favicon (e.g., `16`, `32`, `64`)
 
-MIT
+### Example Requests
+
+Basic usage:
+```
+https://get-favicon.pages.dev/api/favicon?domain=google.com
+```
+
+With specified size:
+```
+https://get-favicon.pages.dev/api/favicon?domain=google.com&sz=64
+```
+
+### Usage in HTML
+
+```html
+<img src="https://get-favicon.pages.dev/api/favicon?domain=google.com" alt="Google Favicon">
+```
+
+## Development
+
+For local development:
+
+```
+npx wrangler pages dev
+```
+
+This will start a local server that emulates the Cloudflare Pages environment.
